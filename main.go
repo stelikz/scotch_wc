@@ -27,10 +27,11 @@ func main() {
 
 	go handleMessages()
 
-	 log.Println("http server started on :8080")
-        err := http.ListenAndServe(addr, nil)
+	 // log.Println("http server started on :8080")
+        err := http.ListenAndServe(*addr, nil)
         if err != nil {
                 log.Fatal("ListenAndServe: ", err)
+                panic(err)
         }
 }
 
