@@ -16,7 +16,7 @@ var broadcast = make(chan messages.Message)  // broadcast channel
 // Configure the upgrader
 var upgrader = websocket.Upgrader{}
 
-var addr = flag.String(“addr”, “:”+os.Getenv(“PORT”), “http service address”)
+var addr = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 
 func main() {
     // Create a simple file server
