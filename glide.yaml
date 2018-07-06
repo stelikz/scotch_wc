@@ -1,0 +1,6 @@
+package: github.com/stelikz/scotch_wc
+import:
+- package: github.com/gorilla/websocket
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
