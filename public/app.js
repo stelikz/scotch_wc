@@ -19,7 +19,7 @@ new Vue({
                 self.chatContent += '<div class="chip">'
                     + msg[i].username
                 + '</div>'
-                + emojione.toImage(msg[i].message) + '<br/>'; // Parse emojis
+                + msg[i].message + '<br/>'; // Parse emojis
 
             var element = document.getElementById('chat-messages');
             element.scrollTop = element.scrollHeight;
@@ -27,7 +27,7 @@ new Vue({
             self.chatContent += '<div class="chip">'
                     + msg.username
                 + '</div>'
-                + emojione.toImage(msg.message) + '<br/>'; // Parse emojis
+                + msg.message + '<br/>'; // Parse emojis
 
             var element = document.getElementById('chat-messages');
             element.scrollTop = element.scrollHeight; // Auto scroll to the bottom

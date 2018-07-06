@@ -3,11 +3,11 @@ package database
 import(
 	"gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
-    "messages"
+    "github.com/stelikz/scotch_wc/messages"
     "log"
     )
 
-func Show(s string, a messages.Messages, db string, co string) {
+func Show(s string, a messages.Messages, db string, co string) messages.Messages{
 	session, _ := mgo.Dial(s)
 
 	anotherSession := session.Copy()
@@ -18,8 +18,7 @@ func Show(s string, a messages.Messages, db string, co string) {
 	if err2 != nil {
 		log.Println(err2)
 	}
-	log.Println(a)
-
+	return a
 }
 
 func Store(s string, msg messages.Message, db string, co string) {

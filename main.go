@@ -4,27 +4,16 @@ import (
         "log"
         "net/http"
         "github.com/gorilla/websocket"
-        "gopkg.in/mgo.v2"
-        "gopkg.in/mgo.v2/bson"
-        "fmt"
-        "./messages"
-        "./db"
+        "github.com/stelikz/scotch_wc/messages"
+        "github.com/stelikz/scotch_wc/db"
 
 )
 
 var clients = make(map[*websocket.Conn]bool) // connected clients
-var broadcast = make(chan messages.Message)           // broadcast channel
+var broadcast = make(chan messages.Message)  // broadcast channel
 // Configure the upgrader
 var upgrader = websocket.Upgrader{}
 
-type Message struct {
-    Username string `json:"username"`
-    Message string `json:"message"`
-    ID uint64 `json:"id"`
-
-}
-
-type Messages []Message
 
 func main() {
     // Create a simple file server
@@ -53,25 +42,12 @@ func handleConnections(w http.ResponseWriter, req *http.Request) {
 	var results messages.Messages
 	// var results Messages
 
-	database.Show("localhost", results, "store", "chats")
-	// session, _ := mgo.Dial("localhost")
-
-	// anotherSession := session.Copy()
-	// defer anotherSession.Close()
-
-	// c := session.DB("store").C("chats")
-	// err2 := c.Find(bson.M{}).All(&results)
-	// if err2 != nil {
-	// 	log.Println(err2)
-	// }
+	results = database.Show("localhost", results, "store", "chats")
 	
 	err = ws.WriteJSON(results)
-	if(err!= nil) {
-		fmt.Println("err")
-		fmt.Println(err)
-		panic(err)
+	if err != nil {
+		log.Println(err)
 	}
-	fmt.Println("Not err")
 
 	for {
 		var msg messages.Message
@@ -92,13 +68,6 @@ func handleMessages() {
 
 		database.Store("localhost", msg, "store", "chats")
 
-		// session, _ := mgo.Dial("localhost")
-
-		// anotherSession := session.Copy()
-		// defer anotherSession.Close()
-
-		// c := session.DB("store").C("chats")
-		// c.Insert(msg)
 		for client := range clients{
 			err := client.WriteJSON(msg)
 			if err != nil {
