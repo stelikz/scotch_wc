@@ -1,7 +1,9 @@
 package main
 
 import (
+		"os"
         "log"
+        "flag"
         "net/http"
         "github.com/gorilla/websocket"
         "github.com/stelikz/scotch_wc/messages"
