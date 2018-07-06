@@ -8,7 +8,7 @@ import (
         "github.com/stelikz/scotch_wc/db"
 
 )
-
+//
 var clients = make(map[*websocket.Conn]bool) // connected clients
 var broadcast = make(chan messages.Message)  // broadcast channel
 // Configure the upgrader
@@ -40,7 +40,6 @@ func handleConnections(w http.ResponseWriter, req *http.Request) {
 	clients[ws] = true
 
 	var results messages.Messages
-	// var results Messages
 
 	results = database.Show("localhost", results, "store", "chats")
 	
