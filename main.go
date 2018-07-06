@@ -14,6 +14,7 @@ var broadcast = make(chan messages.Message)  // broadcast channel
 // Configure the upgrader
 var upgrader = websocket.Upgrader{}
 
+var addr = flag.String(“addr”, “:”+os.Getenv(“PORT”), “http service address”)
 
 func main() {
     // Create a simple file server
@@ -25,7 +26,7 @@ func main() {
 	go handleMessages()
 
 	 log.Println("http server started on :8080")
-        err := http.ListenAndServe(":8080", nil)
+        err := http.ListenAndServe(addr, nil)
         if err != nil {
                 log.Fatal("ListenAndServe: ", err)
         }
