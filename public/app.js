@@ -19,7 +19,7 @@ new Vue({
                 self.chatContent += '<div class="chip">'
                     + msg[i].username
                 + '</div>'
-                + msg[i].message + '<br/>'; // Parse emojis
+                + msg[i].message + '<br/>';
 
             var element = document.getElementById('chat-messages');
             element.scrollTop = element.scrollHeight;
