@@ -49,7 +49,7 @@ func handleConnections(w http.ResponseWriter, req *http.Request) {
 
 	
 
-	results = database.Show(mongo_uri, results, "store", "chats")
+	results = database.Show(mongo_uri, results, "webchattrial", "chats")
 	
 	err = ws.WriteJSON(results)
 	if err != nil {
