@@ -18,6 +18,8 @@ var upgrader = websocket.Upgrader{}
 
 var addr = flag.String("addr", ":"+os.Getenv("PORT"), "http service address")
 
+var mongo_uri = os.Getenv("MONGODB_URI")
+
 func main() {
     // Create a simple file server
     fs := http.FileServer(http.Dir("./public"))
@@ -45,8 +47,7 @@ func handleConnections(w http.ResponseWriter, req *http.Request) {
 
 	var results messages.Messages
 
-	mongo_uri = ENV['MONGODB_URI']
-	client = Mongo::Client.new(mongo_uri);
+	
 
 	results = database.Show(mongo_uri, results, "store", "chats")
 	
