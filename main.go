@@ -45,7 +45,10 @@ func handleConnections(w http.ResponseWriter, req *http.Request) {
 
 	var results messages.Messages
 
-	results = database.Show("localhost", results, "store", "chats")
+	mongo_uri = ENV['MONGODB_URI']
+	client = Mongo::Client.new(mongo_uri);
+
+	results = database.Show(mongo_uri, results, "store", "chats")
 	
 	err = ws.WriteJSON(results)
 	if err != nil {
@@ -69,7 +72,7 @@ func handleMessages() {
 	for {
 		msg := <-broadcast
 
-		database.Store("localhost", msg, "store", "chats")
+		database.Store(mongo_uri, msg, "store", "chats")
 
 		for client := range clients{
 			err := client.WriteJSON(msg)
