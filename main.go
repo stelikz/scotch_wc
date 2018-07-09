@@ -73,7 +73,7 @@ func handleMessages() {
 	for {
 		msg := <-broadcast
 
-		database.Store(mongo_uri, msg, "store", "chats")
+		database.Store(mongo_uri, msg, "webchattrial", "chats")
 
 		for client := range clients{
 			err := client.WriteJSON(msg)
